@@ -4,54 +4,54 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
-    networks:
-      - inception-net
-    volumes:
-      - db_data:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_HOST: ${MYSQL_HOST}
-      MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_DB_USR: ${WP_DB_USR}
-      WP_DB_PWD: ${WP_DB_PWD}
+    # networks:
+    #   - inception-net
+    # volumes:
+    #   - db_data:/var/lib/mysql
+    # restart: always
+    # environment:
+    #   MYSQL_HOST: ${MYSQL_HOST}
+    #   MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
+    #   WP_DB_NAME: ${WP_DB_NAME}
+    #   WP_DB_USR: ${WP_DB_USR}
+    #   WP_DB_PWD: ${WP_DB_PWD}
   
   nginx:
     container_name: nginx
     build: ./requirements/nginx/
-    networks:
-      - inception-net
-    depends_on:
-      - wordpress
-    volumes:
-      - wp_data:/var/www/html
+    # networks:
+    #   - inception-net
+    # depends_on:
+    #   - wordpress
+    # volumes:
+    #   - wp_data:/var/www/html
     ports:
       - 443:443
-    restart: always
+    # restart: always
   
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/
-    networks:
-      - inception-net
-    restart: always
-    depends_on:
-      - mariadb
-    volumes:
-      - wp_data:/var/www/html
-    environment:
-      DOMAIN_NAME: ${DOMAIN_NAME}
-      MYSQL_HOST: ${MYSQL_HOST}
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_DB_USR: ${WP_DB_USR}
-      WP_DB_PWD: ${WP_DB_PWD}
-      WP_TITLE: ${WP_TITLE}
-      WP_ADMIN_USR: ${WP_ADMIN_USR}
-      WP_ADMIN_PWD: ${WP_ADMIN_PWD}
-      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
-      WP_USR: ${WP_USR}
-      WP_PWD: ${WP_PWD}
-      WP_EMAIL: ${WP_EMAIL}
+    # networks:
+    #   - inception-net
+    # restart: always
+    # depends_on:
+    #   - mariadb
+    # volumes:
+    #   - wp_data:/var/www/html
+    # environment:
+    #   DOMAIN_NAME: ${DOMAIN_NAME}
+    #   MYSQL_HOST: ${MYSQL_HOST}
+    #   WP_DB_NAME: ${WP_DB_NAME}
+    #   WP_DB_USR: ${WP_DB_USR}
+    #   WP_DB_PWD: ${WP_DB_PWD}
+    #   WP_TITLE: ${WP_TITLE}
+    #   WP_ADMIN_USR: ${WP_ADMIN_USR}
+    #   WP_ADMIN_PWD: ${WP_ADMIN_PWD}
+    #   WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+    #   WP_USR: ${WP_USR}
+    #   WP_PWD: ${WP_PWD}
+    #   WP_EMAIL: ${WP_EMAIL}
 
 volumes:
   db_data: {}
