@@ -6,6 +6,7 @@ cat  > /tmp/mariadb-user.sql << EOF
 
   DELETE FROM	mysql.user WHERE User='';
   DROP DATABASE test;
+  # DROP DATABASE wordpress;
   DELETE FROM mysql.db WHERE Db='test';
   DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 
@@ -19,3 +20,4 @@ cat  > /tmp/mariadb-user.sql << EOF
 EOF
 /usr/bin/mysqld --user=mysql --bootstrap < /tmp/mariadb-user.sql
 exec mysqld --user=mysql --console
+# mysql -u $WP_DB_USR -D test -e "DROP TABLE test"
