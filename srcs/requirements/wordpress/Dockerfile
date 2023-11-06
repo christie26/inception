@@ -3,12 +3,11 @@ FROM	alpine:3.18
 
 # install mariadb
 RUN		apk update && apk upgrade
-RUN		apk add mariadb-client
+RUN		apk add --no-cache mariadb-client
 
-# RUN	apk update && apk upgrade
-# RUN apk add mariadb-client
-# RUN apk add                 \
-#     php7				\
+# install php (by default php8.1)
+RUN 	apk add --no-cache	\
+    	php				
 # 		php7-fpm			\
 # 		php7-bcmath			\
 # 		php7-bz2 			\
@@ -70,5 +69,6 @@ RUN		apk add mariadb-client
 
 # WORKDIR /var/www/html/wordpress
 
-# COPY ./entrypoint.sh /tmp/entrypoint.sh
-# CMD [ "sh", "/tmp/entrypoint.sh" ]
+COPY ./entrypoint.sh /tmp/entrypoint.sh
+ENTRYPOINT [ "sh", "/tmp/entrypoint.sh" ]
+# ENTRYPOINT [ "sleep", "50000" ]

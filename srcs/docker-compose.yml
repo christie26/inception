@@ -10,7 +10,6 @@ services:
       - type: bind
         source: $HOME/$LOGIN/data/db
         target: /var/lib/mysql
-      # - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_HOST: ${MYSQL_HOST}
@@ -30,7 +29,6 @@ services:
       - type: bind
         source: $HOME/$LOGIN/data/wp
         target: /var/www/html
-      # - wp_data:/var/www/html
     ports:
       - 443:443
     restart: always
@@ -40,14 +38,13 @@ services:
     build: ./requirements/wordpress/
     networks:
       - inception-net
-    restart: always
     depends_on:
       - mariadb
     volumes:
       - type: bind
         source: $HOME/$LOGIN/data/wp
         target: /var/www/html
-      # - wp_data:/var/www/html
+    restart: always
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
       MYSQL_HOST: ${MYSQL_HOST}
@@ -62,9 +59,6 @@ services:
       WP_PWD: ${WP_PWD}
       WP_EMAIL: ${WP_EMAIL}
 
-# volumes:
-#   # - db_data:/Users/yoonsele/data/db
-#   wp_data: {}
-
 networks:
   inception-net:
+    driver: bridge

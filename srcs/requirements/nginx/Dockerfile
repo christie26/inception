@@ -1,25 +1,27 @@
-
+# nginx dockerfile #
+# 1. get alpine image
 FROM    alpine:3.18
 
-# install nginx
+# 2. install nginx
 RUN     apk update && apk upgrade
-RUN     apk add nginx openssl
+RUN     apk add --no-cache nginx openssl
 
-# FROM    alpine:3.15
+# 3. nginx SSL setting
+RUN mkdir -p /etc/nginx/ssl
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+        -out /etc/nginx/ssl/inception.cert \
+        -keyout /etc/nginx/ssl/inception.key \
+        -subj "/C=KR/ST=Ile-de-France/L=seoul/O=42 School/CN=yoonsele.42.fr"
 
-# RUN	apk update && apk upgrade && apk add --no-cache \
-#         nginx \
-#         openssl
+# 4. create /run/nginx
+RUN mkdir -p /run/nginx
+# RUN mkdir -p /var/log/nginx
 
-# # nginx SSL
-# RUN mkdir -p /etc/nginx/ssl
-# RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
-#         -out /etc/nginx/ssl/inception.cert \
-#         -keyout /etc/nginx/ssl/inception.key \
-#         -subj "/C=FR/ST=Ile-de-France/L=Paris/O=42 School/CN=yoonsele.42.fr"
+# 5. copy conf file
+COPY tools/nginx.conf /etc/nginx/http.d/default.conf
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-# # nginx config
-# RUN mkdir -p /run/nginx
-# COPY tools/nginx.conf /etc/nginx/http.d/default.conf
+# 6. expose the Nginx port
+EXPOSE 443
 
-# ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
