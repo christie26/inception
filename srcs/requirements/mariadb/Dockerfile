@@ -1,4 +1,4 @@
-# mariadb dockerfile #
+
 # 1. get alpine image
 FROM	alpine:3.18
 
