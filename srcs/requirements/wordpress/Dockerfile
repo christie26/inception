@@ -1,13 +1,12 @@
 
-FROM	alpine:3.18
+FROM	alpine:3.14
 
 # install mariadb
 RUN		apk update && apk upgrade
 RUN		apk add --no-cache mariadb-client
 
-# install php (by default php8.1)
-RUN 	apk add --no-cache	\
-    	php				
+# install php (by default php8.2)
+RUN 	apk --update --no-cache add php7 php7-fpm
 # 		php7-fpm php7-bcmath php7-bz2 php7-calendar php7-ctype \
 #		php7-curl php7-dom php7-exif php7-fileinfo php7-gd \
 # 		php7-gmagick php7-gmp php7-iconv php7-imap php7-intl \
@@ -19,16 +18,17 @@ RUN 	apk add --no-cache	\
 #		php7-sysvsem php7-sysvshm php7-tokenizer php7-xml	 
 #		php7-xmlreader php7-xmlwriter php7-xsl	 php7-zip	 php7-zlib
 
-# 3. install wp-cli
+# install wp-cli
 RUN apk add --no-cache wget
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
-RUN sudo mv wp-cli.phar /usr/bin/wp
+RUN mv wp-cli.phar /usr/bin/wp
+# sudo ? 
 
-# #PHP-FPM
-RUN	adduser -S nginx &&	addgroup -S nginx
-COPY conf/php-fpm.conf /etc/php81/php-fpm.conf
-COPY conf/www.conf /etc/php81/php-fpm.d/www.conf
+# config for PHP-FPM
+RUN		adduser -S nginx &&	addgroup -S nginx
+# COPY 	conf/php-fpm.conf /etc/php81/php-fpm.conf
+# COPY 	conf/www.conf /etc/php81/php-fpm.d/www.conf
 
 WORKDIR /var/www/html/wordpress
 

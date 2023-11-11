@@ -1,6 +1,6 @@
 # nginx dockerfile #
 # 1. get alpine image
-FROM    alpine:3.18
+FROM    alpine:3.14
 
 # 2. install nginx
 RUN     apk update && apk upgrade
@@ -11,7 +11,7 @@ RUN mkdir -p /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
         -out /etc/nginx/ssl/inception.cert \
         -keyout /etc/nginx/ssl/inception.key \
-        -subj "/C=KR/ST=Ile-de-France/L=seoul/O=42 School/CN=yoonsele.42.fr"
+        -subj "/C=KR/ST=Seoul/L=seoul/O=42 School/CN=yoonsele.42.fr"
 
 # 4. create /run/nginx
 RUN mkdir -p /run/nginx
