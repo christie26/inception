@@ -1,56 +1,37 @@
-version: "3.9"
-
+version: "3"
 services:
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb/
-    networks:
-      - inception-net
-    volumes:
-      - type: bind
-        source: $HOME/$LOGIN/data/db
-        target: /var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_HOST: ${MYSQL_HOST}
-      MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_DB_USR: ${WP_DB_USR}
-      WP_DB_PWD: ${WP_DB_PWD}
-
   nginx:
+    build: requirements/nginx/
     container_name: nginx
-    build: ./requirements/nginx/
-    networks:
-      - inception-net
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "$HOME/$LOGIN/data/wp:/var/www/html"
     depends_on:
       - wordpress
-    volumes:
-      - type: bind
-        source: $HOME/$LOGIN/data/wp
-        target: /var/www/html
-    ports:
-      - 443:443
+    networks:
+      - inception-network
     restart: always
 
   wordpress:
+    build: requirements/wordpress/
     container_name: wordpress
-    build: ./requirements/wordpress/
-    networks:
-      - inception-net
+    ports:
+      - "9000:9000"
+    volumes:
+      - "$HOME/$LOGIN/data/wp:/var/www/html"
     depends_on:
       - mariadb
-    volumes:
-      - type: bind
-        source: $HOME/$LOGIN/data/wp
-        target: /var/www/html
+    networks:
+      - inception-network
     restart: always
     environment:
-      DOMAIN_NAME: ${DOMAIN_NAME}
       MYSQL_HOST: ${MYSQL_HOST}
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_DB_USR: ${WP_DB_USR}
-      WP_DB_PWD: ${WP_DB_PWD}
+      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
+      WP_DATABASE_USR: ${WP_DATABASE_USR}
+      WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+      DOMAIN_NAME: ${DOMAIN_NAME}
       WP_TITLE: ${WP_TITLE}
       WP_ADMIN_USR: ${WP_ADMIN_USR}
       WP_ADMIN_PWD: ${WP_ADMIN_PWD}
@@ -59,6 +40,21 @@ services:
       WP_PWD: ${WP_PWD}
       WP_EMAIL: ${WP_EMAIL}
 
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - "$HOME/$LOGIN/data/db:/var/lib/mysql"
+    networks:
+      - inception-network
+    restart: always
+    environment:
+      MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
+      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
+      WP_DATABASE_USR: ${WP_DATABASE_USR}
+      WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+
 networks:
-  inception-net:
-    driver: bridge
+  inception-network:

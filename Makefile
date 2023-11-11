@@ -1,16 +1,18 @@
 NAME	= inception
 
-all		:	prune up
+all		:	up
 
-up	:	
+re		: 	prune up
+
+up		:	
 			cd srcs && docker-compose up --build
 
 stop:
 			cd srcs && docker-compose down
 
-prune: 		clean
-			@ docker system prune -f
+prune: 		
+			docker system prune -f
 
 $(NAME) : all
 
-.PHONY: 	all up stop prune
+.PHONY: 	all re up stop prune
