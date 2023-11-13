@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
 RUN	apk update && apk upgrade && apk add --no-cache \
 		wget				\
@@ -56,19 +56,19 @@ RUN	apk update && apk upgrade && apk add --no-cache \
 		
 
 # php config
-RUN	adduser -S nginx &&	addgroup -S nginx
-COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
-COPY conf/www.conf /etc/php7/php-fpm.d/www.conf
+RUN		adduser -S nginx &&	addgroup -S nginx
+COPY 	conf/php-fpm.conf /etc/php7/php-fpm.conf
+COPY 	conf/www.conf /etc/php7/php-fpm.d/www.conf
 
 # static website
-COPY conf/index.html /tmp/index.html
+COPY 	conf/index.html /tmp/index.html
 
-# install wordpress
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar
-RUN cp wp-cli.phar /usr/bin/wp
+# install wp-cli
+RUN 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN 	chmod +x wp-cli.phar
+RUN 	cp wp-cli.phar /usr/bin/wp
 
 WORKDIR /var/www/html/wordpress
 
-COPY tools/configure.sh /tmp/configure.sh
-ENTRYPOINT [ "sh", "/tmp/configure.sh" ]
+COPY 	tools/entrypoint.sh /tmp/entrypoint.sh
+ENTRYPOINT [ "sh", "/tmp/entrypoint.sh" ]
