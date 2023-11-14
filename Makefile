@@ -8,7 +8,8 @@ up		:
 			cd srcs && docker-compose up --build
 
 down:
-			cd srcs && docker-compose down
+			cd srcs && docker-compose down --volumes --rmi all
+			rm -rf ~/yoonsele/data
 
 clean:
 			@if [ $$(docker ps -q | wc -l) -gt 0 ]; then \
@@ -32,6 +33,6 @@ clean:
 			docker system prune -f
 			rm -rf ~/yoonsele/data
 
-$(NAME) : all
+$(NAME) : 	all
 
 .PHONY: 	all re up down clean

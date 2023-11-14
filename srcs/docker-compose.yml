@@ -27,17 +27,17 @@ services:
     restart: always
     environment:
       MYSQL_HOST: ${MYSQL_HOST}
-      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR: ${WP_DATABASE_USR}
-      WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+      WP_DB_NAME: ${WP_DB_NAME}
+      WP_DB_USR: ${WP_DB_USR}
+      WP_DB_PWD: ${WP_DB_PWD}
       DOMAIN_NAME: ${DOMAIN_NAME}
       WP_TITLE: ${WP_TITLE}
       WP_ADMIN_USR: ${WP_ADMIN_USR}
       WP_ADMIN_PWD: ${WP_ADMIN_PWD}
       WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
       WP_USR: ${WP_USR}
-      WP_PWD: ${WP_PWD}
-      WP_EMAIL: ${WP_EMAIL}
+      WP_USR_PWD: ${WP_USR_PWD}
+      WP_USR_EMAIL: ${WP_USR_EMAIL}
 
   mariadb:
     build: requirements/mariadb/
@@ -51,9 +51,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PWD: ${MYSQL_ROOT_PWD}
-      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR: ${WP_DATABASE_USR}
-      WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+      WP_DB_NAME: ${WP_DB_NAME}
+      WP_DB_USR: ${WP_DB_USR}
+      WP_DB_PWD: ${WP_DB_PWD}
 
 networks:
   inception-network:

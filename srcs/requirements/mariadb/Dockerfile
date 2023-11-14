@@ -9,7 +9,7 @@ RUN     mkdir -p /run/mysqld
 RUN     chown -R mysql:mysql /run/mysqld
 RUN     chown -R mysql:mysql /var/lib/mysql
 
-# init database
+# initialize MySQL Data Directory
 RUN     mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm > /dev/null
 
 # allow remote connections

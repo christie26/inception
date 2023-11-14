@@ -2,7 +2,7 @@
 
 if [ -z "$(ls -A /var/lib/mysql)" ]; then
 	cp -r /var/lib/mysql1/* /var/lib/mysql
-fi 
+fi
 
 tfile=$(mktemp)
 if [ ! -f "$tfile" ]; then
@@ -18,9 +18,9 @@ cat << EOF > "$tfile"
 	DELETE FROM mysql.db WHERE Db='test';
 	DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 
-	CREATE DATABASE $WP_DATABASE_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
-	CREATE USER '$WP_DATABASE_USR'@'%' IDENTIFIED by '$WP_DATABASE_PWD';
-	GRANT ALL PRIVILEGES ON $WP_DATABASE_NAME.* TO '$WP_DATABASE_USR'@'%';
+	CREATE DATABASE $WP_DB_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
+	CREATE USER '$WP_DB_USR'@'%' IDENTIFIED by '$WP_DB_PWD';
+	GRANT ALL PRIVILEGES ON $WP_DB_NAME.* TO '$WP_DB_USR'@'%';
 
 	FLUSH PRIVILEGES;
 EOF
