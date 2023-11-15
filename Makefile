@@ -9,7 +9,7 @@ up		:
 
 down:
 			cd srcs && docker compose down --volumes --rmi all
-			rm -rf ~/yoonsele/data
+			sudo rm -rf ~/data
 
 clean:
 			@if [ $$(docker ps -q | wc -l) -gt 0 ]; then \
