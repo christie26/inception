@@ -58,7 +58,7 @@ RUN 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.p
 RUN 	chmod +x wp-cli.phar
 RUN 	cp wp-cli.phar /usr/bin/wp
 
-WORKDIR /var/www/html/wordpress
+WORKDIR /var/www/html
 
 COPY 	tools/entrypoint.sh /tmp/entrypoint.sh
 ENTRYPOINT [ "sh", "/tmp/entrypoint.sh" ]

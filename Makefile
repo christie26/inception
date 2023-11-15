@@ -5,10 +5,10 @@ all		:	up
 re		: 	down up
 
 up		:	
-			cd srcs && sudo docker compose up --build
+			cd srcs && docker compose up --build
 
 down:
-			cd srcs && sudo docker compose down --volumes --rmi all
+			cd srcs && docker compose down --volumes --rmi all
 			rm -rf ~/yoonsele/data
 
 clean:
