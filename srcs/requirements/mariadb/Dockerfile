@@ -6,6 +6,7 @@ RUN     apk add --no-cache mariadb mariadb-client
 
 # create run time directory & set the ownership
 RUN     mkdir -p /run/mysqld
+RUN     mkdir -p /var/lib/mysql
 RUN     chown -R mysql:mysql /run/mysqld
 RUN     chown -R mysql:mysql /var/lib/mysql
 
