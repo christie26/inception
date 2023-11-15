@@ -23,6 +23,7 @@ if [ ! -f "/var/www/html/index.php" ] ||  ! echo "Wordpress already installed"; 
 
 fi
 
+chmod 777 -R /var/www/html
 echo "Wordpress ready!"
 
 # start PHP FPM

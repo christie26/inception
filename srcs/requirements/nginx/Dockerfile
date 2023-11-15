@@ -15,7 +15,7 @@ RUN     openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 RUN     mkdir -p /run/nginx
 COPY    conf/nginx.conf /etc/nginx/http.d/default.conf
 
-RUN 	chmod 755 /var/www*
+#RUN 	chmod 777 -R /var/www/html
 # expose 443 port
 EXPOSE 443
 
