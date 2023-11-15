@@ -26,7 +26,7 @@ cat << EOF > "$tfile"
 EOF
 
 # run init.sql
-/usr/bin/mysqld --user=mysql --bootstrap < $tfile
-rm -f $tfile
+/usr/bin/mysqld --user=mysql --bootstrap < "$tfile"
+rm -f "$tfile"
 
 exec /usr/bin/mysqld --user=mysql --console

@@ -1,4 +1,4 @@
-FROM    alpine:3.14
+FROM    alpine:3.17
 
 # install mariadb
 RUN	apk update && apk upgrade
