@@ -6,7 +6,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - "$HOME/$LOGIN/data/wp:/var/www/html"
+      - "$HOME/data/wp:/var/www/html"
     depends_on:
       - wordpress
     networks:
@@ -19,7 +19,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - "$HOME/$LOGIN/data/wp:/var/www/html"
+      - "$HOME/data/wp:/var/www/html"
     depends_on:
       - mariadb
     networks:
@@ -45,7 +45,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "$HOME/$LOGIN/data/db:/var/lib/mysql"
+      - "$HOME/data/db:/var/lib/mysql"
     networks:
       - inception-network
     restart: always
