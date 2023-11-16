@@ -5,7 +5,7 @@ all		:	up
 re		: 	down up
 
 up		:	
-			cd srcs && docker compose up --build
+			cd srcs && docker compose build && docker compose up
 
 down:
 			cd srcs && docker compose down --volumes --rmi all
@@ -31,7 +31,7 @@ clean:
 				echo "No images found."; \
 			fi
 			docker system prune -f
-			rm -rf ~/yoonsele/data
+			sudo rm -rf ~//data
 
 $(NAME) : 	all
 

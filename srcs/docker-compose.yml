@@ -2,11 +2,12 @@ version: "3"
 services:
   nginx:
     build: requirements/nginx/
+    image: nginx
     container_name: nginx
     ports:
       - "443:443"
     volumes:
-      - "/home/yoonsele/data/wp:/var/www/html"
+      - wordpress:/var/www/html
     depends_on:
       - wordpress
     networks:
@@ -15,11 +16,12 @@ services:
 
   wordpress:
     build: requirements/wordpress/
+    image: wordpress
     container_name: wordpress
     ports:
       - "9000:9000"
     volumes:
-      - "/home/yoonsele/data/wp:/var/www/html"
+      - mariadb:/var/lib/mysql
     depends_on:
       - mariadb
     networks:
@@ -41,11 +43,12 @@ services:
 
   mariadb:
     build: requirements/mariadb/
+    image: mariadb
     container_name: mariadb
     ports:
       - "3306:3306"
     volumes:
-      - "/home/yoonsele/data/db:/var/lib/mysql"
+      - wordpress:/var/www/html
     networks:
       - inception-network
     restart: always
@@ -57,3 +60,19 @@ services:
 
 networks:
   inception-network:
+
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      device: /home/yoonsele/data/wp
+      o: bind
+      type: none
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      device: /home/yoonsele/data/db
+      o: bind
+      type: none
