@@ -28,8 +28,9 @@ EOF
 
 chown -R mysql:mysql /var/lib/mysql
 
-# run init.sql
+# init mysql server
 /usr/bin/mysqld --user=mysql --bootstrap < "$tfile"
 rm -f "$tfile"
 
+# start mysql server
 exec /usr/bin/mysqld --user=mysql --console

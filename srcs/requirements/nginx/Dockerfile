@@ -5,6 +5,7 @@ RUN	apk update && apk upgrade
 RUN     apk add --no-cache nginx openssl
 
 # get ssl key
+# https://www.openssl.org/docs/man1.1.1/man1/req.html
 RUN     mkdir /etc/nginx/ssl
 RUN     openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
         -out /etc/nginx/ssl/yoonsele.pem \
@@ -15,7 +16,6 @@ RUN     openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 RUN     mkdir -p /run/nginx
 COPY    conf/nginx.conf /etc/nginx/http.d/default.conf
 
-#RUN 	chmod 777 -R /var/www/html
 # expose 443 port
 EXPOSE 443
 
