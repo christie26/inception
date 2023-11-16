@@ -4,9 +4,10 @@ all		:	up
 
 re		: 	down up
 
-up		:	
+up		:
+			mkdir -p /home/yoonsele/data/wp
+			mkdir -p /home/yoonsele/data/db
 			cd srcs && docker compose build && docker compose up
-
 down:
 			cd srcs && docker compose down --volumes --rmi all
 			sudo rm -rf ~/data
