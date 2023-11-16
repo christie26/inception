@@ -27,4 +27,4 @@ chmod 777 -R /var/www/html
 echo "Wordpress ready!"
 
 # start PHP FPM
-/usr/sbin/php-fpm81 -F -R
+exec /usr/sbin/php-fpm81 -F -R
